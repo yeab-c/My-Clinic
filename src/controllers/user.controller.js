@@ -16,9 +16,15 @@ const createToken = (user) => {
   );
 };
 
-// Register User
+// Register user
 export const registerUser = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        error: "Request body is missing",
+      });
+    }
+
     const { name, email, password, phone } = req.body;
 
     if (!name || !email || !password || !phone) {
@@ -58,7 +64,7 @@ export const registerUser = async (req, res) => {
 
     const token = createToken(user);
 
-    res.status(201).json({
+    return res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -69,20 +75,26 @@ export const registerUser = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       error: "Server error",
     });
   }
 };
 
-// Login User
+// Login user
 export const loginUser = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        error: "Request body is missing",
+      });
+    }
+
     const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
-        error: "All fields are required",
+        error: "Email and password are required",
       });
     }
 
@@ -94,10 +106,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({
@@ -107,7 +116,7 @@ export const loginUser = async (req, res) => {
 
     const token = createToken(user);
 
-    res.status(200).json({
+    return res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -118,18 +127,22 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       error: "Server error",
     });
   }
 };
 
-// Get Current User
+// Get profile
 export const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select(
-      "-password"
-    );
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    const user = await User.findById(req.user.id).select("-password");
 
     if (!user) {
       return res.status(404).json({
@@ -137,11 +150,11 @@ export const getProfile = async (req, res) => {
       });
     }
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       error: "Server error",
     });
   }

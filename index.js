@@ -4,7 +4,8 @@ import cors from 'cors';
 
 import connectDB from './src/config/db.js';
 
-import userRoutes from './src/routes/user.route.js';
+import userRouter from './src/routes/user.route.js';
+import doctorRouter from './src/routes/doctor.route.js';
 
 
 const app = express();
@@ -22,7 +23,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRouter);
+app.use("/api/doctors", doctorRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
