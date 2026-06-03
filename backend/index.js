@@ -11,7 +11,7 @@ import appointmentRouter from './src/routes/appointment.route.js';
 import patientRouter from './src/routes/patient.route.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 connectDB();
 
