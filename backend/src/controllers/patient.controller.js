@@ -68,3 +68,25 @@ export const getPatientById = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, phone } = req.body;
+
+    if (req.user.id !== req.params.id) {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: { name, phone } },
+      { new: true }
+    ).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
