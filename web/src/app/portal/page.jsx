@@ -240,8 +240,8 @@ export default function ProfilePage() {
               <p className="text-sm text-muted-foreground">
                 Breakdown of your appointment history
               </p>
-              <div className="mt-6 h-64 sm:h-80">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="mt-6" style={{ width: '100%', height: '320px' }}>
+                <ResponsiveContainer>
                   <PieChart>
                     <Pie
                       data={chartData.statusData}
@@ -310,8 +310,8 @@ export default function ProfilePage() {
               <p className="text-sm text-muted-foreground">
                 Your appointments over the last 6 months
               </p>
-              <div className="mt-6 h-64 sm:h-80">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="mt-6" style={{ width: '100%', height: '320px' }}>
+                <ResponsiveContainer>
                   <BarChart data={chartData.timeData}>
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis dataKey="month" fontSize={12} />
