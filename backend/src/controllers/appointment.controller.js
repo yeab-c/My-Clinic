@@ -1,5 +1,6 @@
 import Appointment from "../models/Appointment.js";
 import Availability from "../models/Availability.js";
+import updatePastAppointments from "../utils/updatePastAppointments.js";
 
 // patient creates appointment
 export const createAppointment = async (req, res) => {
@@ -51,6 +52,9 @@ export const createAppointment = async (req, res) => {
 // patient sees own, admin sees all
 export const getAppointments = async (req, res) => {
   try {
+    // Update any past appointments before fetching
+    await updatePastAppointments();
+
     const { status } = req.query;
 
     let filter = {};
