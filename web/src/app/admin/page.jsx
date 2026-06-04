@@ -4,8 +4,6 @@ import { useState, useEffect, useMemo } from "react";
 import {
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   LineChart,
   Line,
   PieChart,
@@ -179,97 +177,91 @@ export default function AdminOverview() {
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         {/* Appointments per day */}
         <Card title="Appointments per day" className="lg:col-span-2">
-          <div style={{ width: "100%", height: "240px" }}>
-            <ResponsiveContainer>
-              <AreaChart data={analytics.perDay}>
-                <defs>
-                  <linearGradient id="colorAppts" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS[0]} stopOpacity={0.4} />
-                    <stop offset="100%" stopColor={COLORS[0]} stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
-                <XAxis dataKey="day" fontSize={12} />
-                <YAxis fontSize={12} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "hsl(var(--card))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                  }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="appts"
-                  stroke={COLORS[0]}
-                  strokeWidth={2}
-                  fill="url(#colorAppts)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height={240}>
+            <AreaChart data={analytics.perDay}>
+              <defs>
+                <linearGradient id="colorAppts" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={COLORS[0]} stopOpacity={0.4} />
+                  <stop offset="100%" stopColor={COLORS[0]} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
+              <XAxis dataKey="day" fontSize={12} />
+              <YAxis fontSize={12} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: "8px",
+                  fontSize: "12px",
+                }}
+              />
+              <Area
+                type="monotone"
+                dataKey="appts"
+                stroke={COLORS[0]}
+                strokeWidth={2}
+                fill="url(#colorAppts)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </Card>
 
         {/* Service popularity */}
         <Card title="Service popularity">
-          <div style={{ width: "100%", height: "240px" }}>
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={analytics.servicePopularity}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={80}
-                  paddingAngle={3}
-                />
-                <Legend
-                  iconType="circle"
-                  wrapperStyle={{ fontSize: "12px" }}
-                  formatter={(value) => value.split(" ")[0]} // Shorten names
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "hsl(var(--card))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height={240}>
+            <PieChart>
+              <Pie
+                data={analytics.servicePopularity}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                innerRadius={50}
+                outerRadius={80}
+                paddingAngle={3}
+              />
+              <Legend
+                iconType="circle"
+                wrapperStyle={{ fontSize: "12px" }}
+                formatter={(value) => value.split(" ")[0]} // Shorten names
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: "8px",
+                  fontSize: "12px",
+                }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
         </Card>
 
         {/* Monthly trend */}
         <Card title="Monthly booking trend" className="lg:col-span-2">
-          <div style={{ width: "100%", height: "240px" }}>
-            <ResponsiveContainer>
-              <LineChart data={analytics.monthlyTrend}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
-                <XAxis dataKey="month" fontSize={12} />
-                <YAxis fontSize={12} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "hsl(var(--card))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="bookings"
-                  stroke={COLORS[0]}
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: COLORS[0] }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height={240}>
+            <LineChart data={analytics.monthlyTrend}>
+              <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
+              <XAxis dataKey="month" fontSize={12} />
+              <YAxis fontSize={12} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: "8px",
+                  fontSize: "12px",
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="bookings"
+                stroke={COLORS[0]}
+                strokeWidth={2}
+                dot={{ r: 3, fill: COLORS[0] }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </Card>
       </div>
     </>

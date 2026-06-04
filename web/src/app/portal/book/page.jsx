@@ -431,10 +431,6 @@ export default function BookPage() {
               <Clock className="h-5 w-5 text-muted-foreground" />
             </div>
           </div>
-          <p className="px-1 text-xs text-muted-foreground">
-            You won't be charged until your visit is completed. Free cancellation
-            up to 4 hours before.
-          </p>
         </aside>
       </div>
 

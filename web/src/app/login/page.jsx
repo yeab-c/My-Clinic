@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
@@ -8,18 +8,24 @@ import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, Eye, EyeOff, Stethoscope } from "lucide-react";
 import { toast } from "sonner";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
   const router = useRouter();
   const [tab, setTab] = useState("login");
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      const redirectPath = user.role === "admin" ? "/admin" : "/portal";
+      router.push(redirectPath);
+    }
+  }, [user, router]);
+
   // Login state
   const [loginData, setLoginData] = useState({ email: "", password: "" });
-  const [remember, setRemember] = useState(true);
   const [loginErrors, setLoginErrors] = useState({});
   const [showLoginPassword, setShowLoginPassword] = useState(false);
 
@@ -176,14 +182,6 @@ export default function LoginPage() {
                 )}
               </div>
 
-              <label className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Checkbox
-                  checked={remember}
-                  onCheckedChange={(v) => setRemember(!!v)}
-                />
-                Remember me on this device
-              </label>
-
               <Button type="submit" disabled={loading} className="w-full" size="lg">
                 {loading
                   ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in…</>
@@ -303,7 +301,7 @@ export default function LoginPage() {
             <p className="mt-6 max-w-md text-4xl font-semibold leading-tight">
               &ldquo;It is health that is the real wealth, and not pieces of gold and silver.&rdquo;
             </p>
-            <p className="mt-4 text-sm opacity-80">— Mahatma Gandhi</p>
+            <p className="mt-4 text-sm opacity-80">- Mahatma Gandhi</p>
           </div>
         </div>
       </aside>

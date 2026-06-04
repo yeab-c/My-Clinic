@@ -22,7 +22,10 @@ export const updatePastAppointments = async () => {
       { $set: { status: "past" } }
     );
 
-    console.log(`Updated ${result.modifiedCount} appointments to past status`);
+    // Only log when appointments were actually updated
+    if (result.modifiedCount > 0) {
+      console.log(`Updated ${result.modifiedCount} appointments to past status`);
+    }
     return result;
   } catch (error) {
     console.error("Error updating past appointments:", error);

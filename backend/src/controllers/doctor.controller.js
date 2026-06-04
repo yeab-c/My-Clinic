@@ -41,7 +41,7 @@ export const updateDoctor = async (req, res) => {
     const doctor = await Doctor.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },          // only updates fields that are sent
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!doctor) {
