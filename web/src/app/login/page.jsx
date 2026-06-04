@@ -136,7 +136,7 @@ export default function LoginPage() {
                 <Input
                   id="login-email"
                   type="email"
-                  placeholder="you@email.com"
+                  placeholder="abebe@email.com"
                   autoComplete="email"
                   value={loginData.email}
                   onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
@@ -201,7 +201,7 @@ export default function LoginPage() {
                 <Input
                   id="signup-name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="Abebe Kebede"
                   autoComplete="name"
                   value={signupData.name}
                   onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
@@ -217,7 +217,7 @@ export default function LoginPage() {
                 <Input
                   id="signup-email"
                   type="email"
-                  placeholder="you@email.com"
+                  placeholder="abebe@email.com"
                   autoComplete="email"
                   value={signupData.email}
                   onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
